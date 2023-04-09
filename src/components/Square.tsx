@@ -1,29 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SquareProps from '../types/SquareProps';
 import SquareState from '../types/SquareState';
 
 // Square 컴포넌트를 정의, prop과 state의 타입을 설정
-class Square extends React.Component<SquareProps, SquareState> {
-  // Square 컴포넌트의 생성자 메소드, props를 받아 super로 전달
-  constructor(props: SquareProps) {
-    super(props);
+function Square(props: SquareProps) {
+  const [value, setValue] = useState('');
 
-    this.state = {
-      value: '',
-    };
-  }
+  const handleClick = () => {
+      setValue('X');
+  };
 
-  render() {
-    const SquareState = () => {
-      this.setState({ value: "X" });
-    };
-
-    return (
-      <button className="square" onClick = {SquareState}>
-        {this.state.value || this.props.value}
-      </button>
-    );
-  }
+  return (
+    <button className="square" onClick = {handleClick}>
+      {value || props.value}
+    </button>
+  );
 }
 
 export default Square;
