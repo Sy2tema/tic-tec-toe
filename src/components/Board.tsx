@@ -1,11 +1,7 @@
 import React from "react";
 import Square from "./Square";
-
-interface BoardProps {}
-
-interface BoardState {
-  squares: Array<number | null>;
-}
+import BoardProps from "../types/BoardProps";
+import BoardState from "../types/BoardState";
 
 class Board extends React.Component<BoardProps, BoardState> {
   constructor(props: BoardProps) {

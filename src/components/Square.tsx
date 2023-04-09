@@ -1,13 +1,6 @@
 import React from 'react';
-
-// 인터페이스를 통해 value prop의 타입을 선언
-interface SquareProps {
-  value: number | null;
-}
-
-interface SquareState {
-  value: string;
-}
+import SquareProps from '../types/SquareProps';
+import SquareState from '../types/SquareState';
 
 // Square 컴포넌트를 정의, prop과 state의 타입을 설정
 class Square extends React.Component<SquareProps, SquareState> {
