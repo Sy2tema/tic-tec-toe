@@ -1,5 +1,5 @@
 interface BoardState {
-    squares: Array<number | null>;
+    squares: Array<string |number | null>;
 }
 
 export default BoardState;

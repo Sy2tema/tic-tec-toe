@@ -12,8 +12,19 @@ class Board extends React.Component<BoardProps, BoardState> {
     };
   }
 
+  handleClick = (index: number): void => {
+    const squares: (string | number | null)[] = this.state.squares.slice();
+    squares[index] = 'X';
+    this.setState({squares: squares})
+  };
+
   renderSquare(index: number) {
-    return <Square value={this.state.squares[index]} />;
+    return (
+      <Square 
+        value={this.state.squares[index]} 
+        onClick={() => this.handleClick(index)} // 함수가 렌더링될때 즉시 호출되지 않도록 화살표 함수로 감싸줌
+      />
+    );
   }
 
   render() {
