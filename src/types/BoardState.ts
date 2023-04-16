@@ -1,6 +1,3 @@
-interface BoardState {
-    squares: Array<string |number | null>;
-    isNext: boolean;
-}
+interface BoardState {}
 
 export default BoardState;
