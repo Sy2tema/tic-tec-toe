@@ -28,10 +28,10 @@ class Game extends React.Component<GameProps, GameState> {
     ];
 
     for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return squares[a];
-        }
+      }
     }
 
     return null;
@@ -92,8 +92,9 @@ class Game extends React.Component<GameProps, GameState> {
       <div className="game">
         <div className="game-board">
           <Board 
-            squares={current.squares}
-            onClick={(index) => this.handleClick(index)}
+            squares={ current.squares }
+            onClick={ (index) => this.handleClick(index) }
+            isClicked={ this.state.stepNumber }
           />
         </div>
         <div className="game-info">

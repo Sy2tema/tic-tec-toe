@@ -2,6 +2,7 @@
 interface SquareProps {
     value: string | number | null;
     onClick: () => void;
+    isClicked: number;
 }
 
 export default SquareProps;
