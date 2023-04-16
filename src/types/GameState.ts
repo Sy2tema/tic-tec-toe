@@ -3,6 +3,7 @@ interface GameState {
     history: Array<{
         squares: (string | null)[]
     }>; // 배열 타입인 {}[]으로도 선언 가능
+    stepNumber: number;
     isNext: boolean;
 }
 
