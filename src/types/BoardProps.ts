@@ -1,7 +1,7 @@
 interface BoardProps {
-    squares: Array<string | number | null>;
+    squares: Array<string  | null>;
     onClick: (index: number) => void;
-    isClicked: number;
+    lastClickedIndex: number;
 }
 
 export default BoardProps;

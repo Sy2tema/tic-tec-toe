@@ -5,6 +5,7 @@ interface GameState {
     }>; // 배열 타입인 {}[]으로도 선언 가능
     stepNumber: number;
     isNext: boolean;
+    lastClickedIndex: number;
 }
 
 export default GameState;

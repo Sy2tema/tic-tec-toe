@@ -12,10 +12,11 @@ class Game extends React.Component<GameProps, GameState> {
       }],
       stepNumber: 0,
       isNext: true,
+      lastClickedIndex: -1,
     };
   }
 
-  calculateWinner (squares: (string | number | null)[]) {
+  calculateWinner (squares: (string  | number | null)[]) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -53,6 +54,7 @@ class Game extends React.Component<GameProps, GameState> {
       }]),
       stepNumber: history.length,
       isNext: !this.state.isNext,
+      lastClickedIndex: index,
     });
   };
 
@@ -94,7 +96,7 @@ class Game extends React.Component<GameProps, GameState> {
           <Board 
             squares={ current.squares }
             onClick={ (index) => this.handleClick(index) }
-            isClicked={ this.state.stepNumber }
+            lastClickedIndex={ this.state.lastClickedIndex }
           />
         </div>
         <div className="game-info">

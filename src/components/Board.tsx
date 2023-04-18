@@ -5,12 +5,13 @@ import BoardState from "../types/BoardState";
 
 class Board extends React.Component<BoardProps, BoardState> {
   renderSquare(index: number) {
-    const isClicked = index;
+    const isHighlighted = this.props.lastClickedIndex === index;
+
     return (
       <Square 
         value={this.props.squares[index]} 
         onClick={() => this.props.onClick(index)} // 함수가 렌더링될때 즉시 호출되지 않도록 화살표 함수로 감싸줌
-        isClicked={ isClicked }
+        isHighlighted={ isHighlighted }
       />
     );
   }
