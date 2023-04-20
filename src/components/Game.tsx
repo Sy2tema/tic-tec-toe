@@ -9,6 +9,7 @@ class Game extends React.Component<GameProps, GameState> {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        lastClickedIndex: -1,
       }],
       stepNumber: 0,
       isNext: true,
@@ -51,6 +52,7 @@ class Game extends React.Component<GameProps, GameState> {
     this.setState({
       history: history.concat([{
         squares: squares,
+        lastClickedIndex: index,
       }]),
       stepNumber: history.length,
       isNext: !this.state.isNext,
@@ -59,9 +61,13 @@ class Game extends React.Component<GameProps, GameState> {
   };
 
   jumpTo = (step: number) => {
+    const history = this.state.history.slice(0, step + 1);
+    const current = history[step];
+
     this.setState({
       stepNumber: step,
       isNext: (step % 2) === 0,
+      lastClickedIndex: current.lastClickedIndex,
     });
   };
   
