@@ -7,6 +7,7 @@ interface GameState {
     stepNumber: number;
     isNext: boolean;
     lastClickedIndex: number;
+    winIndex: (number | null)[];
 }
 
 export default GameState;

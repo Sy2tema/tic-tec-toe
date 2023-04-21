@@ -14,10 +14,12 @@ class Game extends React.Component<GameProps, GameState> {
       stepNumber: 0,
       isNext: true,
       lastClickedIndex: -1,
+      winIndex: Array(3).fill(null),
     };
   }
 
   calculateWinner (squares: (string  | number | null)[]) {
+    console.log(squares);
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -31,7 +33,17 @@ class Game extends React.Component<GameProps, GameState> {
 
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
+
+      // squares배열의 a, b, c인덱스에 있는 문자가 다 같으면 승리 조건을 충족했다는 것을 의미한다
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        if (!this.state.winIndex ||
+            !this.state.winIndex.every((value, index) => value === [a, b, c][index])
+        ) {
+          this.setState({
+            winIndex: [a, b, c],
+          });
+        }
+        
         return squares[a];
       }
     }
@@ -73,17 +85,17 @@ class Game extends React.Component<GameProps, GameState> {
   
   render() {
     const history = this.state.history;
-    const current = history[this.state.stepNumber]; 
+    const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        `Go to move #${move}` :
+        `Go to move #${ move }` :
         'Go to game start';
 
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{ desc }</button>
+        <li key={ move }>
+          <button onClick={ () => this.jumpTo(move) }>{ desc }</button>
         </li>
       )
     });
@@ -91,10 +103,12 @@ class Game extends React.Component<GameProps, GameState> {
     let status;
     
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = `승자는 '${ winner }'입니다.`;
     } else {
-      status = 'Next player: ' + (this.state.isNext ? 'X' : 'O');
+      status = `${ (this.state.isNext ? 'O' : 'X') }의 차례입니다.`;
     }
+
+    console.log(this.state.winIndex);
     
     return (
       <div className="game">
@@ -103,6 +117,7 @@ class Game extends React.Component<GameProps, GameState> {
             squares={ current.squares }
             onClick={ (index) => this.handleClick(index) }
             lastClickedIndex={ this.state.lastClickedIndex }
+            // winIndex={ this.state.winIndex }
           />
         </div>
         <div className="game-info">
