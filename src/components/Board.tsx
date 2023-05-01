@@ -5,6 +5,8 @@ import BoardState from "../types/BoardState";
 
 class Board extends React.Component<BoardProps, BoardState> {
   renderSquare(index: number) {
+    // 이긴 원인이 된 인덱스에만 하이라이트를 위한 클래스를 부여하도록 설정
+    const isWinningSquare = this.props.winIndex.includes(index);
     const isHighlighted = this.props.lastClickedIndex === index;
 
     return (
@@ -12,10 +14,11 @@ class Board extends React.Component<BoardProps, BoardState> {
         value={this.props.squares[index]} 
         onClick={() => this.props.onClick(index)} // 함수가 렌더링될때 즉시 호출되지 않도록 화살표 함수로 감싸줌
         isHighlighted={ isHighlighted }
+        isWinningSquare={ isWinningSquare }
       />
     );
   }
-
+    
   render() {
     return (
       <div>

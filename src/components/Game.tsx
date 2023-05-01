@@ -10,16 +10,16 @@ class Game extends React.Component<GameProps, GameState> {
       history: [{
         squares: Array(9).fill(null),
         lastClickedIndex: -1,
+        winIndex: [null, null, null],
       }],
       stepNumber: 0,
       isNext: true,
       lastClickedIndex: -1,
-      winIndex: Array(3).fill(null),
+      winIndex: [null, null, null],
     };
   }
 
   calculateWinner (squares: (string  | number | null)[]) {
-    console.log(squares);
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -65,6 +65,7 @@ class Game extends React.Component<GameProps, GameState> {
       history: history.concat([{
         squares: squares,
         lastClickedIndex: index,
+        winIndex: [null, null, null],
       }]),
       stepNumber: history.length,
       isNext: !this.state.isNext,
@@ -80,6 +81,7 @@ class Game extends React.Component<GameProps, GameState> {
       stepNumber: step,
       isNext: (step % 2) === 0,
       lastClickedIndex: current.lastClickedIndex,
+      winIndex: current.winIndex,
     });
   };
   
@@ -107,8 +109,6 @@ class Game extends React.Component<GameProps, GameState> {
     } else {
       status = `${ (this.state.isNext ? 'O' : 'X') }의 차례입니다.`;
     }
-
-    console.log(this.state.winIndex);
     
     return (
       <div className="game">
@@ -117,7 +117,7 @@ class Game extends React.Component<GameProps, GameState> {
             squares={ current.squares }
             onClick={ (index) => this.handleClick(index) }
             lastClickedIndex={ this.state.lastClickedIndex }
-            // winIndex={ this.state.winIndex }
+            winIndex={ this.state.winIndex }
           />
         </div>
         <div className="game-info">
