@@ -89,6 +89,10 @@ class Game extends React.Component<GameProps, GameState> {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
+    const coordinate = current.lastClickedIndex === -1 ? 
+      "" : 
+      `(${ Math.floor(current.lastClickedIndex / 3) }, ${ current.lastClickedIndex % 3 })`
+      ;
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -106,6 +110,8 @@ class Game extends React.Component<GameProps, GameState> {
     
     if (winner) {
       status = `승자는 '${ winner }'입니다.`;
+    } else if (!current.squares.includes(null)) {
+      status = '비겼습니다.';
     } else {
       status = `${ (this.state.isNext ? 'O' : 'X') }의 차례입니다.`;
     }
@@ -122,6 +128,7 @@ class Game extends React.Component<GameProps, GameState> {
         </div>
         <div className="game-info">
           <div>{ status }</div>
+          <div>{ coordinate }</div>
           <ol>{ moves }</ol>
         </div>
       </div>
