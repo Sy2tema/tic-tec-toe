@@ -16,6 +16,7 @@ class Game extends React.Component<GameProps, GameState> {
       isNext: true,
       lastClickedIndex: -1,
       winIndex: [null, null, null],
+      descOrder: true,
     };
   }
 
@@ -61,6 +62,7 @@ class Game extends React.Component<GameProps, GameState> {
     }
     
     squares[index] = this.state.isNext ? 'O' : 'X';
+
     this.setState({
       history: history.concat([{
         squares: squares,
@@ -90,10 +92,18 @@ class Game extends React.Component<GameProps, GameState> {
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
     const coordinate = current.lastClickedIndex === -1 ? 
-      "" : 
+      "(-1, -1)" : 
       `(${ Math.floor(current.lastClickedIndex / 3) }, ${ current.lastClickedIndex % 3 })`
       ;
+      
+    const printOrder = this.state.descOrder ? "내림차순으로" : "오름차순으로";
 
+    const orderChange = () => {
+      this.setState({
+        descOrder: !this.state.descOrder,
+      });
+    };
+      
     const moves = history.map((step, move) => {
       const desc = move ?
         `Go to move #${ move }` :
@@ -106,7 +116,9 @@ class Game extends React.Component<GameProps, GameState> {
       )
     });
 
-    let status;
+    if (!this.state.descOrder) moves.reverse();
+
+    let status: string = "";
     
     if (winner) {
       status = `승자는 '${ winner }'입니다.`;
@@ -125,6 +137,12 @@ class Game extends React.Component<GameProps, GameState> {
             lastClickedIndex={ this.state.lastClickedIndex }
             winIndex={ this.state.winIndex }
           />
+          <button 
+            className="game-order"
+            onClick={ orderChange }
+          >
+            { printOrder }
+          </button>
         </div>
         <div className="game-info">
           <div>{ status }</div>

@@ -9,6 +9,7 @@ interface GameState {
     isNext: boolean;
     lastClickedIndex: number;
     winIndex: (number | null)[];
+    descOrder: boolean;
 }
 
 export default GameState;
